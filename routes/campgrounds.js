@@ -18,7 +18,7 @@ router.post("/",middleware.isLoggedIn,function(req,res){
 	var name=req.body.name;
 	var image=req.body.image;
 	var price=req.body.price;
-	console.log(req.body);
+	//console.log(req.body);
 	var desc=req.body.description;
 	var author={
 		id:req.user._id,
