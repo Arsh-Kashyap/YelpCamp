@@ -16,10 +16,10 @@ var campgroundroutes=require("./routes/campgrounds.js"),
 	commentroutes=require("./routes/comments.js"),
 	indexroutes=require("./routes/index.js");
 	
-
-// mongoose.connect("mongodb://localhost:27017/yelp_camp",{ useNewUrlParser: true, useUnifiedTopology:true, useFindAndModify: false });
-// app.use(bodyparser.urlencoded({extended:true}));
-mongoose.connect("mongodb+srv://arsh:arshkashyaP@7543@yelpcampcluster0-zslvv.mongodb.net/<dbname>?retryWrites=true&w=majority",{ useNewUrlParser: true, useUnifiedTopology:true, useFindAndModify: false });
+//console.log(process.env.DATABASEURL);
+ mongoose.connect(process.env.DATABASEURL,{ useNewUrlParser: true, useUnifiedTopology:true, useFindAndModify: false });
+app.use(bodyparser.urlencoded({extended:true}));
+//mongoose.connect("mongodb+srv://arsh:arshkashyaP@7543@yelpcampcluster0-zslvv.mongodb.net/<dbname>?retryWrites=true&w=majority",{ useNewUrlParser: true, useUnifiedTopology:true, useFindAndModify: false });
 app.set("view engine", "ejs");
 app.use(express.static(__dirname+"/public"));
 app.use(methodOverride("_method"));
@@ -44,7 +44,6 @@ app.use(function(req,res,next){
 	next();
 });
 //console.log(campgroundroutes);
-app.use(bodyparser.urlencoded({extended: true}));
 app.use("/", indexroutes);
 app.use("/campgrounds", campgroundroutes);
 app.use("/campgrounds/:id/comments", commentroutes);
