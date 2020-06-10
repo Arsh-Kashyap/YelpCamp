@@ -18,7 +18,7 @@ middlewareobj.checkcampgroundownership=function(req, res, next){
     });
   },
 middlewareobj.checkcommentownership=function(req, res, next){
-    Comment.findById(req.params.commentId, function(err, foundComment){
+    Comment.findById(req.params.comment_id, function(err, foundComment){
        if(err || !foundComment){
            console.log(err);
            req.flash('error', 'Sorry, that comment does not exist!');
