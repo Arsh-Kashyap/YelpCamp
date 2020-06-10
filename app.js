@@ -24,7 +24,7 @@ app.use(bodyparser.urlencoded({extended:true}));
 app.set("view engine", "ejs");
 app.use(express.static(__dirname+"/public"));
 app.use(methodOverride("_method"));
-
+app.locals.moment = require('moment');
 app.use(require("express-session")({
 	secret:"Rusty wins",
 	resave: false,
