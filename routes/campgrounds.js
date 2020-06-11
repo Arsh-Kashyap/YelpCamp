@@ -3,16 +3,16 @@ var router  = express.Router();
 var Campground = require("../models/campground");
 var middleware=require("../middleware");
 
-router.get("/",function(req,res){
-	Campground.find({},function(err,allcampgrounds){
-		if(err)
-			console.log(err);
-		else
-			{
-				res.render("campgrounds/index",{campgrounds:allcampgrounds, currentuser:req.user})
-			}
-	});
-	
+//INDEX - show all campgrounds
+router.get("/", function(req, res){
+    // Get all campgrounds from DB
+    Campground.find({}, function(err, allCampgrounds){
+       if(err){
+           console.log(err);
+       } else {
+          res.render("campgrounds/index",{campgrounds: allCampgrounds, page: 'campgrounds'});
+       }
+    });
 });
 router.post("/",middleware.isLoggedIn,function(req,res){
 	var name=req.body.name;
@@ -31,7 +31,8 @@ router.post("/",middleware.isLoggedIn,function(req,res){
 		}
 		else
 			{
-				res.redirect("/");
+				req.flash("success","Campground added successfully!");
+				res.redirect("/campgrounds");
 			}
 	});
 	
@@ -80,6 +81,7 @@ router.put("/:id",middleware.checkcampgroundownership,function(req,res){
 });
 router.delete("/:id",middleware.checkcampgroundownership,function(req,res){
 	Campground.findByIdAndRemove(req.params.id,function(err){
+				req.flash("success","Campground deleted successfully!");
 				res.redirect("/campgrounds");			
 	});
 });
